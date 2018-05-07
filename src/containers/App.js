@@ -65,7 +65,6 @@ class App extends Component {
     
     //fonction pour effacer les noms
     deletePersonHandler = (personIndex) => {
-        console.log(personIndex)
         const persons = [...this.state.persons];
         persons.splice(personIndex, 1)
         this.setState( {persons: persons})
@@ -96,6 +95,7 @@ class App extends Component {
         
         return (
             <div className={Classes.App}>
+                <button onClick={() => {this.setState({showPersons : true})}}>ShowPerson</button>
                 <Cockpit 
                     appTitle={this.props.title}
                     showPersons={this.state.showPersons}

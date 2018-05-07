@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import Classes from './Person.css';
-//import Radium from 'radium'
-
 
 class Person extends Component {
     constructor(props) {
