@@ -1,30 +1,38 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types'
+
 import Classes from './Person.css';
+import withClass from '../../../Hoc/withClass'
+import Aux from '../../../Hoc/Aux'
 
 class Person extends Component {
-    constructor(props) {
-        super(props);
-        console.log("pers.js in Construcor")
+    
+    componentDidMount () {
+        if (this.props.position === 0) {
+            this.inputElement.focus();
+        }
     }
     
-    componentWillMount() {
-        console.log('pers.js in component Will Mount')
-    }
-    
-    componentDidMount() {
-        console.log('pers.js in Component did mount')
-    }
-
     render() {
-        console.log("pers.js in Render")
         return (
-            <div className={Classes.Person}>
+            <Aux>
                 <p onClick={this.props.clicked}>I'm {this.props.name}, I am {this.props.age} years old.</p>
                 <p>{this.props.children}</p>
-                <input type="text" onChange={this.props.changed} value={this.props.name}/>
-            </div>
+                <input 
+                    ref={(input) => { this.inputElement = input }}
+                    type="text" 
+                    onChange={this.props.changed} 
+                    value={this.props.name}/>
+            </Aux>
         );
     }
 }
 
-export default Person;
+Person.propTypes = {
+    clicked: PropTypes.func ,
+    name: PropTypes.string,
+    age: PropTypes.number,
+    changed: PropTypes.func
+}
+
+export default withClass(Person, Classes.Person);

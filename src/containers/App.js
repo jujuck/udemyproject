@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import Classes from './App.css';
 import Persons from '../Components/Persons/Persons';
 import Cockpit from '../Components/Cockpit/Cockpit';
+import Aux from '../Hoc/Aux'
+import withClass from '../Hoc/withClass'
 
 class App extends Component {
     constructor(props) {
         super(props);
-        console.log('App.js in Constructor')
         this.state = {
             persons: [
                 {
@@ -25,18 +26,10 @@ class App extends Component {
                     age: 25
                 }
             ],
-            showPersons: false
+            showPersons: false,
+            toggleClicked: 0
         }
     }
-    
-    componentWillMount() {
-        console.log('App.js in component Will Mount')
-    }
-    
-    componentDidMount() {
-        console.log('App.js in Component did mount')
-    }
-
 
     //Fonction de changement de nom
     nameChangeHandler = (event, id) => {
@@ -74,13 +67,18 @@ class App extends Component {
     //Fonction pour affcher les noms
     togglePersonHandler = () => {
         const doesShow = this.state.showPersons;
-        this.setState({showPersons: !doesShow});
+        this.setState((prevState, props) => {
+            return {
+                showPersons: !doesShow, 
+                toggleClicked: prevState.toggleClicked +1
+            }
+        });
     }
     
     render() {        
         let persons = null;
         
-        console.log('App.js in Render')
+        console.log(Classes.App)
         if(this.state.showPersons) {
             
            persons = (
@@ -94,7 +92,7 @@ class App extends Component {
         }  
         
         return (
-            <div className={Classes.App}>
+            <Aux>
                 <button onClick={() => {this.setState({showPersons : true})}}>ShowPerson</button>
                 <Cockpit 
                     appTitle={this.props.title}
@@ -102,10 +100,10 @@ class App extends Component {
                     persons={this.state.persons}
                     clicked={this.togglePersonHandler}/>
                 {persons}   
-            </div>
+            </Aux>
 
     );
   }
 }
 
-export default App;
+export default withClass(App, Classes.App);

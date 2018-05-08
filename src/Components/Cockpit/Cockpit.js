@@ -1,13 +1,14 @@
 import React from 'react';
 import Classes from './Cockpit.css';
+import Aux from '../../Hoc/Aux'
 
 const Cockpit = (props) => {
     const assignedClass = [];
-    let btnClass = '';
+    let btnClass = Classes.Button;
     
     //Couleur du bouton en fonction de l'affichage
     if(props.showPersons) {
-        btnClass = Classes.Red
+        btnClass = [Classes.Button, Classes.Red].join(' ')
     }
     
     //Class du text d'introduction en fonction du nb d'item
@@ -19,7 +20,7 @@ const Cockpit = (props) => {
     }
     
     return (
-        <div>
+        <Aux>
             <h1>{props.appTitle}</h1>
             <p className={assignedClass.join(' ')}>This is really working!</p>
             <button 
@@ -27,7 +28,7 @@ const Cockpit = (props) => {
                 onClick={props.clicked}
                 >Toggle Person
             </button>
-        </div>
+        </Aux>
     )
 }
 
